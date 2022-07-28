@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d522a27a28dd9a84182b17ada64b1eed
+guid: 85a86fa8617535e4eb29d823abe087df
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
@@ -7,18 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: clothes1
-    second: {fileID: 2100000, guid: e9e919159a6cac046a98ff87f7d0cd0e, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: phong1
-    second: {fileID: 2100000, guid: 65295e60152d57e47af88c966330b791, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: skin1
-    second: {fileID: 2100000, guid: 8b0a22c75fd88fa4da1cdaad41d95773, type: 2}
+      name: lambert1
+    second: {fileID: 2100000, guid: 8163d546eee94c348a038f9bd0c8b347, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -38,7 +28,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -103,13 +93,13 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 1
+    hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 3
+  animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   additionalBone: 0
   userData: 
