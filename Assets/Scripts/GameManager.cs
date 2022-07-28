@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager gamemanagerInstance;
 
     public bool startGame; // Oyun basladimi
-    [HideInInspector] public bool isFinish; // Level bittimi
+    public bool isFinish; // Level bittimi
     private void Awake()
     {
         if (gamemanagerInstance == null)
@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
         startGame = false;
         isFinish = false;
     }
-
     
     void Update()
     {

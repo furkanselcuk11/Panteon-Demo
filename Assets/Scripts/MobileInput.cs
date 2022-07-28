@@ -47,8 +47,7 @@ public class MobileInput : MonoBehaviour
         {   // Mosue tusuna basildiginda veya ekranda parmak ile basildigýndaki ilk pozisyon degerini al?ir
             start_pos = Input.mousePosition;    // ilk posizsyon de?geri tutulur
             tap = true; // Dokunma aktif olur  
-            GameManager.gamemanagerInstance.startGame = true;
-            // Oyuna baþlamak için ekrana dokun (StartGame) True olur
+            
         }
 
         if (Input.GetMouseButton(0))
@@ -56,7 +55,8 @@ public class MobileInput : MonoBehaviour
             last_pos = Input.mousePosition; // Son pozisyon de?eri tutulur
             delta = start_pos - last_pos;   // Toplam kaydirilan mesafe hesaplanir ve delta degerinde tutulur
             swipe = true;   // Kaydirma aktif olur
-
+            GameManager.gamemanagerInstance.startGame = true;
+            // Oyuna baþlamak için ekrana dokun (StartGame) True olur
         }
 
         if (Input.GetMouseButtonUp(0))
