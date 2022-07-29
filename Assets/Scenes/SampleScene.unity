@@ -346,10 +346,10 @@ RectTransform:
   m_Father: {fileID: 1510888958}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -100}
-  m_SizeDelta: {x: 1080, y: 200}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &162390962
 MonoBehaviour:
@@ -1267,7 +1267,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1126643936
 Transform:
   m_ObjectHideFlags: 0
@@ -1674,7 +1674,7 @@ Transform:
   m_GameObject: {fileID: 1482093630}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 12, y: 12, z: 7}
+  m_LocalScale: {x: 12, y: 12, z: 6}
   m_Children: []
   m_Father: {fileID: 1724247113}
   m_RootOrder: 0
@@ -1971,8 +1971,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1680448207}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3.5}
-  m_LocalScale: {x: 12, y: 12, z: 7}
+  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalScale: {x: 12, y: 12, z: 6}
   m_Children: []
   m_Father: {fileID: 1724247113}
   m_RootOrder: 1
@@ -2068,11 +2068,11 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1724247112}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 00c5778a3affe5541838f8c6af0e7d41, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 4
-  m_Height: 16
+  m_Radius: 3.9580069
+  m_Height: 17.078152
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 3}
 --- !u!114 &1724247115
@@ -2088,7 +2088,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnSpeed: 100
-  turnDirection: 0
+  turnDirection: 1
 --- !u!1 &1736112264
 GameObject:
   m_ObjectHideFlags: 0
@@ -2745,13 +2745,55 @@ GameObject:
   - component: {fileID: 3633704999377777622}
   - component: {fileID: 6754374631368761206}
   - component: {fileID: 8501874748551034540}
+  - component: {fileID: 804685852229602804}
+  - component: {fileID: 804685852229602803}
+  - component: {fileID: 804685852229602802}
   m_Layer: 0
   m_Name: Half_Donut_01
-  m_TagString: Untagged
+  m_TagString: MovingStick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &804685852229602802
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804685852229602801}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.073013864, y: 0.060000017, z: 0.20474419}
+  m_Center: {x: -0.03513221, y: -0.000000004967054, z: -0.013659557}
+--- !u!65 &804685852229602803
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804685852229602801}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.103918076, y: 0.060000017, z: 0.061887782}
+  m_Center: {x: -0.12639499, y: -0.000000004967054, z: -0.11905625}
+--- !u!65 &804685852229602804
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804685852229602801}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.10344486, y: 0.060000017, z: 0.06160041}
+  m_Center: {x: -0.1266316, y: -0.000000004967054, z: 0.11919993}
 --- !u!4 &850568252399055413
 Transform:
   m_ObjectHideFlags: 0
@@ -2818,7 +2860,7 @@ Animator:
   m_Avatar: {fileID: 9000000, guid: d522a27a28dd9a84182b17ada64b1eed, type: 3}
   m_Controller: {fileID: 9100000, guid: d0cce259ee848ec438c454b75a210ab0, type: 2}
   m_CullingMode: 1
-  m_UpdateMode: 1
+  m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -2883,13 +2925,27 @@ GameObject:
   - component: {fileID: 3522116222157642688}
   - component: {fileID: 2965942214802316715}
   - component: {fileID: 7056672338447011346}
+  - component: {fileID: 1811880536759118128}
   m_Layer: 0
   m_Name: Half_Donut_Stick
-  m_TagString: Untagged
+  m_TagString: MovingStick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &1811880536759118128
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811880536759118127}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.33967566, y: 0.02, z: 0.02}
+  m_Center: {x: 0.1698603, y: 0, z: 4.656613e-10}
 --- !u!1 &1849676702795054020
 GameObject:
   m_ObjectHideFlags: 0
@@ -3559,7 +3615,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 364b8ec527d7667489d4e8182529a144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.5
+  speed: 1
+  timer: 5
+  isMove: 0
 --- !u!1 &3913638303543113321
 GameObject:
   m_ObjectHideFlags: 0
@@ -3601,8 +3659,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3592075070793042839}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 7}
-  m_LocalScale: {x: 12, y: 12, z: 7}
+  m_LocalPosition: {x: 0, y: 0, z: 6}
+  m_LocalScale: {x: 12, y: 12, z: 6}
   m_Children: []
   m_Father: {fileID: 1724247113}
   m_RootOrder: 2
@@ -3885,9 +3943,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1e1c65bbfaad0148ba22fa1b27b9238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 5
   horizontalspeed: 5
   defaultSwipe: 3.5
+  isMove: 0
 --- !u!1 &5985543886256185317
 GameObject:
   m_ObjectHideFlags: 0
@@ -3935,7 +3994,7 @@ GameObject:
   - component: {fileID: 6340022256307452828}
   m_Layer: 0
   m_Name: HorizontalObstacle
-  m_TagString: Untagged
+  m_TagString: HorizontalObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

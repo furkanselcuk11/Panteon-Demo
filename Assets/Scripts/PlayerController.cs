@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float defaultSwipe = 4f;    // Player default kaydirma mesafesi
     private bool isRotatingPlatform;
     private bool isRight;
+    public bool isMove;
 
     private Animator anim;
     void Start()
@@ -23,7 +24,7 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (GameManager.gamemanagerInstance.startGame & !GameManager.gamemanagerInstance.isFinish)
+        if (GameManager.gamemanagerInstance.startGame & !GameManager.gamemanagerInstance.isFinish && isMove)
         {
             // Eðer StartGame true ve isFinish false ise hareket et
             transform.Translate(0, 0, speed * Time.fixedDeltaTime); // Karakter speed deðeri hýzýdna ileri hareket eder
@@ -58,11 +59,6 @@ public class PlayerController : MonoBehaviour
             moveX = Mathf.Clamp(moveX + 1 * horizontalspeed * Time.fixedDeltaTime, -defaultSwipe, defaultSwipe);    // Pozisyon sýnýrlandýrýlmasý koyulacaksa
             // Player objesinin x (sað) pozisyonundaki gideceði min-max sýnýrý belirler
         }
-        else
-        {
-            rb.velocity = Vector3.zero; // E?er hareket edilmediyse Player objesi sabit kals?n
-        }
-
         transform.position = new Vector3(moveX, transform.position.y, moveZ);
         // Player objesinin pozisyonu moveX deðerine göre x ekseninde, moveZ deðerine göre z ekseninde hareket eder ve y ekseninde sabit kalýr  
 
@@ -74,13 +70,17 @@ public class PlayerController : MonoBehaviour
         float moveZ = transform.position.z; // Player objesinin z pozisyonun de?erini al?r  
         if (!value)
         {
-            moveX = Mathf.Clamp(moveX - 1 * 10 * Time.fixedDeltaTime, -defaultSwipe, defaultSwipe);    // Pozisyon sýnýrlandýrýlmasý koyulacaksa
+            moveX = Mathf.Clamp(moveX - 1 * (horizontalspeed/2) * Time.fixedDeltaTime, -defaultSwipe, defaultSwipe);    // Pozisyon sýnýrlandýrýlmasý koyulacaksa
         }
         else
         {
-            moveX = Mathf.Clamp(moveX + 1 * 10 * Time.fixedDeltaTime, -defaultSwipe, defaultSwipe);    // Pozisyon sýnýrlandýrýlmasý koyulacaksa
+            moveX = Mathf.Clamp(moveX + 1 * (horizontalspeed / 2) * Time.fixedDeltaTime, -defaultSwipe, defaultSwipe);    // Pozisyon sýnýrlandýrýlmasý koyulacaksa
         }
         transform.position = new Vector3(moveX, transform.position.y, moveZ);
+        //if (transform.position.y <= -0.5f)
+        //{
+        //    GameManager.gamemanagerInstance.startGame = false;
+        //}
     }
     
     private void OnCollisionEnter(Collision collision)
@@ -89,30 +89,52 @@ public class PlayerController : MonoBehaviour
         {
             // Eger StaticObstacle objesine temas etmisse tekrar oyna
             Debug.Log("Tekrar başla");
+            isMove = false;
+            StartCoroutine(nameof(RestartPosition));
+        }
+        if (collision.gameObject.CompareTag("HorizontalObstacle"))
+        {
+            // Eger HorizontalObstacle objesine temas etmisse tekrar oyna
+            Debug.Log("Tekrar başla");
+            isMove = false;
+            StartCoroutine(nameof(RestartPosition));
+        }
+        if (collision.gameObject.CompareTag("MovingStick"))
+        {
+            // Eger MovingStick objesine temas etmisse tekrar oyna
+            Debug.Log("Tekrar başla");
+            isMove = false;
+            StartCoroutine(nameof(RestartPosition));
         }
         if (collision.gameObject.CompareTag("RotatingStick"))
         {
             // Eger RotatingStick objesine temas etmisse cubuk kuvvet uygular
-            Debug.Log("RotatingStick");
-            rb.AddForce(-Vector3.forward * 1000f * Time.fixedDeltaTime, ForceMode.Force);
-        }        
+            Debug.Log("Tekrar başla");
+            isMove = false;
+            rb.AddForce(collision.gameObject.transform.right * 300f * Time.fixedDeltaTime, ForceMode.Impulse);
+            StartCoroutine(nameof(RestartPosition));
+        }
     }
     private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.CompareTag("RotatingPlatform"))
         {
             // RotatingPlatform objesine temas etmisse
-            //isRotatingPlatform = true;
+            isRotatingPlatform = true;
             isRight = collision.gameObject.GetComponent<RotatingPlatform>().turnDirection;
         }
     }
-    //private void OnCollisionExit(Collision collision)
-    //{
-    //    if (collision.gameObject.CompareTag("RotatingPlatform"))
-    //    {
-    //        // RotatingPlatform objesinden çıkmışsa
-    //        isRotatingPlatform = false;
-    //        Debug.Log("Exit");
-    //    }
-    //}
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("RotatingPlatform"))
+        {
+            // RotatingPlatform objesinden çıkmışsa
+            isRotatingPlatform = false;
+        }
+    }
+    IEnumerator RestartPosition()
+    {
+        yield return new WaitForSeconds(1f);
+        transform.position = Vector3.zero;
+    }
 }

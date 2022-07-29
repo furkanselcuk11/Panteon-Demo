@@ -24,15 +24,5 @@ public class RotatingPlatform : MonoBehaviour
         {   // Eger dönme yönü false ise saga dön
             transform.Rotate(0f, 0f, -turnSpeed * Time.fixedDeltaTime);
         }
-    }
-    private void OnCollisionStay(Collision collision)
-    {
-        // Üzerinde bulunan karakterler donme hizindan etkilenir ve tersi hareket eder
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            //float moveX = collision.gameObject.transform.position.x; // Üzerinde bulunan karakterin x pozisyonunu alýr                 
-            //moveX = Mathf.Clamp(moveX - 1 * (turnSpeed / 10) * Time.deltaTime, -3.5f, 3.5f);
-            //collision.gameObject.transform.position = new Vector3(moveX, collision.gameObject.transform.position.y, collision.gameObject.transform.position.z);            
-        }
-    }    
+    }   
 }

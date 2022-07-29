@@ -56,6 +56,7 @@ public class MobileInput : MonoBehaviour
             delta = start_pos - last_pos;   // Toplam kaydirilan mesafe hesaplanir ve delta degerinde tutulur
             swipe = true;   // Kaydirma aktif olur
             GameManager.gamemanagerInstance.startGame = true;
+            GetComponent<PlayerController>().isMove = true;
             // Oyuna baþlamak için ekrana dokun (StartGame) True olur
         }
 

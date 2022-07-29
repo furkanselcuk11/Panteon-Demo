@@ -29,16 +29,5 @@ public class HorizontalObstacle : MonoBehaviour
             }
         }
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        // Temas eden karakterler oyuna tekrar baslar
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        // Temas eden karakterler oyuna tekrar baslar
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("Tekrar başla");
-        }
-    }
+    
 }
