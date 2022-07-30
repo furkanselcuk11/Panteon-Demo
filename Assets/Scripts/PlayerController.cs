@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed = 5f;    // Player hareket hizi
     [SerializeField] private float horizontalspeed = 5f; // Player yön hareket hizi
     [SerializeField] private float defaultSwipe = 4f;    // Player default kaydirma mesafesi
+    [SerializeField] private ParticleSystem konfetiFX;
     private bool isRotatingPlatform;
     private bool isRight;
     public bool isMove;
@@ -82,7 +83,15 @@ public class PlayerController : MonoBehaviour
         //    GameManager.gamemanagerInstance.startGame = false;
         //}
     }
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Finish"))
+        {
+            // Eğer karakter Finish cizgisini gecmisse karakter hareket etmez 
+            StartCoroutine(nameof(PlayerStop));
+        }
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("StaticObstacle"))
@@ -136,5 +145,16 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         transform.position = Vector3.zero;
+    }
+    IEnumerator PlayerStop()
+    {
+        konfetiFX.Play();   // Finish cizgisi gecildiginde Konfeti patlar
+        yield return new WaitForSeconds(0.3f);        
+        anim.SetTrigger("Victory");   // Victory animasyonu çalışır
+        isMove = false;
+        yield return new WaitForSeconds(0.1f);
+        anim.SetBool("Running", false);   // Koþma animasyonu durur ve default olarak bekleme animsayonu çalýþýr
+        GetComponent<PlayerController>().enabled = false;
+        GetComponent<MobileInput>().enabled = false;
     }
 }
