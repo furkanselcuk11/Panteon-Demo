@@ -32,8 +32,8 @@ public class Painterr : MonoBehaviour
     }
     private void Paint(Vector2 coordinate)
     {
-        coordinate.x *= texture.width;  // 0-1 egerini tam nokra piksellere cevirdik
-        coordinate.y *= texture.height; // Yeni 0-1024 yaptýk
+        coordinate.x *= texture.width;  // 0-1 degerini tam nokta piksellere cevirdik
+        coordinate.y *= texture.height; // Yani 0-1024 yaptýk
         Color32[] textureC32 = texture.GetPixels32();
         Color32[] brushC32 = brush.GetPixels32();
 
