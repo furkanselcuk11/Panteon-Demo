@@ -90,6 +90,7 @@ public class PlayerController : MonoBehaviour
         {
             // Eğer karakter Finish cizgisini gecmisse karakter hareket etmez 
             StartCoroutine(nameof(PlayerStop));
+            konfetiFX.transform.position = this.transform.position;
         }
     }
     private void OnCollisionEnter(Collision collision)
