@@ -8,6 +8,7 @@ public class AIManager : MonoBehaviour
     Rigidbody rb;
     private Vector3 startPosition;
     public bool isMove;
+    public bool isFinish;
 
 
     private void Awake()
@@ -22,6 +23,7 @@ public class AIManager : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         startPosition = this.transform.position;
         isMove = false;
+        isFinish = false;
     }
 
     
@@ -34,30 +36,34 @@ public class AIManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         this.transform.position = this.startPosition;
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Finish"))
+        {
+            // Eðer karakter Finish cizgisini gecmisse karakter hareket etmez
+            this.GetComponent<AvoidingObstacles>().StartCoroutine("EnemyStop");
+        }
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("StaticObstacle"))
         {
             // Eger StaticObstacle objesine temas etmisse tekrar oyna
-            Debug.Log("Tekrar baþla");
             StartCoroutine(nameof(RestartPosition));
         }
         if (collision.gameObject.CompareTag("HorizontalObstacle"))
         {
             // Eger HorizontalObstacle objesine temas etmisse tekrar oyna
-            Debug.Log("Tekrar baþla");
             StartCoroutine(nameof(RestartPosition));
         }
         if (collision.gameObject.CompareTag("MovingStick"))
         {
             // Eger MovingStick objesine temas etmisse tekrar oyna
-            Debug.Log("Tekrar baþla");
             StartCoroutine(nameof(RestartPosition));
         }
         if (collision.gameObject.CompareTag("RotatingStick"))
         {
             // Eger RotatingStick objesine temas etmisse cubuk kuvvet uygular
-            Debug.Log("Tekrar baþla");
             rb.AddForce(collision.gameObject.transform.right * 300f * Time.fixedDeltaTime, ForceMode.Impulse);
             StartCoroutine(nameof(RestartPosition));
         }

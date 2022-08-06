@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
@@ -13,6 +13,7 @@ public class AvoidingObstacles : MonoBehaviour
     bool isRightHit;
     bool isBothHit;
     bool isRandomDecided;
+    bool unRayCast;
 
     int randomDirectionX;
 
@@ -21,26 +22,38 @@ public class AvoidingObstacles : MonoBehaviour
     {
         anim = this.gameObject.transform.GetChild(0).gameObject.GetComponent<Animator>();
         speed = Random.Range(speedBetween.x, speedBetween.y);
+        unRayCast = false;
     }
     private void Update()
     {
         if (AIManager.aimanagerInstance.isMove)
         {
-            anim.SetBool("Running", true);    // Ko�ma animasyonu �al���r
+            anim.SetBool("Running", true);    // Koşma animasyonu çalışır
         }
         else
         {
-            anim.SetBool("Running", false);    // Bekleme animasyonu �al���r
+            anim.SetBool("Running", false);    // Bekleme animasyonu çalışır
         }
     }
     private void FixedUpdate()
     {
-        if (GameManager.gamemanagerInstance.startGame)
+        if (GameManager.gamemanagerInstance.startGame && !unRayCast)
         {
             All_Raycast();
             transform.position = new Vector3(Mathf.Clamp(transform.position.x, -defaultSwipe, defaultSwipe), transform.position.y, transform.position.z);
             AIManager.aimanagerInstance.isMove = true;
-        }        
+            anim.SetBool("Running", true);    // Koşma animasyonu çalışır
+        }  
+        else if(GameManager.gamemanagerInstance.startGame && unRayCast)
+        {
+            transform.Translate(0, 0, 5f * Time.fixedDeltaTime); // Karakter speed deðeri hýzýdna ileri hareket eder
+            AIManager.aimanagerInstance.isMove = true;
+            anim.SetBool("Running", true);    // Koşma animasyonu çalışır
+        }
+        else if (AIManager.aimanagerInstance.isFinish)
+        {
+            AIManager.aimanagerInstance.isMove = false;
+        }
     }
 
     private void All_Raycast()
@@ -59,6 +72,7 @@ public class AvoidingObstacles : MonoBehaviour
             if (Physics.Raycast(leftRays, out hit, 1f))
             {
                 transform.position = new Vector3(transform.position.x + 0.1f, transform.position.y, transform.position.z);
+                Debug.DrawLine(leftRays.origin, hit.point, Color.blue);
             }
         }
     }
@@ -72,6 +86,7 @@ public class AvoidingObstacles : MonoBehaviour
             if (Physics.Raycast(rightRays, out hit, 1f))
             {
                 transform.position = new Vector3(transform.position.x - 0.1f, transform.position.y, transform.position.z);
+                Debug.DrawLine(rightRays.origin, hit.point, Color.blue);
             }
         }
     }
@@ -87,6 +102,11 @@ public class AvoidingObstacles : MonoBehaviour
         if (Physics.Raycast(leftRay, out hit, 1f))
         {
             isLeftHit = true;
+            Debug.DrawLine(leftRay.origin, hit.point, Color.red);
+            if (hit.collider.CompareTag("UnRayCast"))
+            {
+                unRayCast = true;
+            }
         }
         else
         {
@@ -96,6 +116,11 @@ public class AvoidingObstacles : MonoBehaviour
         if (Physics.Raycast(rightRay, out hit, 1f))
         {
             isRightHit = true;
+            Debug.DrawLine(rightRay.origin, hit.point, Color.red);
+            if (hit.collider.CompareTag("UnRayCast"))
+            {
+                unRayCast = true;
+            }
         }
         else
         {
@@ -159,5 +184,13 @@ public class AvoidingObstacles : MonoBehaviour
 
         return ray_direction;
     }
-    
+    public IEnumerator EnemyStop()
+    {
+        //yield return new WaitForSeconds(0.2f);
+        anim.SetTrigger("Victory");   // Victory animasyonu çalışır
+        AIManager.aimanagerInstance.isMove = false;
+        yield return new WaitForSeconds(0.1f);
+        anim.SetBool("Running", false);   // Koþma animasyonu durur ve default olarak bekleme animsayonu çalýþýr
+        GetComponent<AvoidingObstacles>().enabled = false;
+    }
 }

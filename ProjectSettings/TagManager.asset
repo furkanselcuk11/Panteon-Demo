@@ -9,6 +9,7 @@ TagManager:
   - RotatingStick
   - MovingStick
   - HorizontalObstacle
+  - UnRayCast
   layers:
   - Default
   - TransparentFX

@@ -19,8 +19,12 @@ public class Painterr : MonoBehaviour
         
     void Update()
     {
-        if (Input.GetMouseButton(0))// Sol tuþa basýlý tuttukça boyayacak
+        if (GameManager.gamemanagerInstance.isFinish)
         {
+            meshRenderer.gameObject.SetActive(true);
+        }
+        if (Input.GetMouseButton(0) && GameManager.gamemanagerInstance.isFinish)// Sol tuþa basýlý tuttukça boyayacak
+        {            
             RaycastHit hitInfo;
             // cam, kullandýðýmýz kamera(Camera classý)
             if(Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition),out hitInfo))

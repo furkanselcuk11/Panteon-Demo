@@ -11,6 +11,8 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject GameStartPanel;
     [SerializeField] private GameObject GameRunTimePanel;
     [SerializeField] private GameObject GameFinishPanel;
+    public TextMeshProUGUI rankingText;
+    public TextMeshProUGUI finishRankText;
     
    
     private void Awake()

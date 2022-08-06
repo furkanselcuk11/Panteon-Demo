@@ -153,6 +153,8 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.3f);        
         anim.SetTrigger("Victory");   // Victory animasyonu çalışır
         isMove = false;
+        GameManager.gamemanagerInstance.isFinish = true;
+        UIController.uicontrollerInstance.finishRankText.text = FindObjectOfType<Ranking>().indexNo.ToString();
         yield return new WaitForSeconds(0.1f);
         anim.SetBool("Running", false);   // Koþma animasyonu durur ve default olarak bekleme animsayonu çalýþýr
         GetComponent<PlayerController>().enabled = false;
