@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
@@ -13,8 +14,9 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject GameFinishPanel;
     public TextMeshProUGUI rankingText;
     public TextMeshProUGUI finishRankText;
-    
-   
+    public GameObject paintSuccessful;
+    public Button nextLevel;
+
     private void Awake()
     {
         if (uicontrollerInstance == null)

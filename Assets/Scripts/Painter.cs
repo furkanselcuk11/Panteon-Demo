@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Painter : MonoBehaviour
 {
@@ -9,12 +10,17 @@ public class Painter : MonoBehaviour
     public Vector2Int textureArea; //x:1024, y:1024
     Texture2D texture;
     public Camera cam;
-    private Color _color = Color.red;
+    private bool isPainted;
+    
+    [SerializeField] private int max;
+    [SerializeField] private Image fillAmountMask;
 
     void Start()
     {
         texture = new Texture2D(textureArea.x, textureArea.y, TextureFormat.ARGB32, false);
         meshRenderer.material.mainTexture = texture;
+        max = (textureArea.x * textureArea.y)-2576;
+        isPainted = false;
     }
         
     void Update()
@@ -23,7 +29,7 @@ public class Painter : MonoBehaviour
         {
             meshRenderer.gameObject.SetActive(true);
         }
-        if (Input.GetMouseButton(0) && GameManager.gamemanagerInstance.isFinish)// Sol tuþa basýlý tuttukça boyayacak
+        if (Input.GetMouseButton(0) && GameManager.gamemanagerInstance.isFinish &&!isPainted)// Sol tuþa basýlý tuttukça boyayacak
         {            
             RaycastHit hitInfo;
             // cam, kullandýðýmýz kamera(Camera classý)
@@ -65,6 +71,33 @@ public class Painter : MonoBehaviour
         }
         texture.SetPixels32(textureC32);        
         texture.Apply(); // Deðiþiklikleri uygulamasý için
-        Debug.Log("T: " + texture.width * texture.height);
+        Debug.Log("T32: " + textureC32.Length);         
+
+        int painted = 0;
+        foreach (var item in textureC32)
+        {
+            if (item.g == 0)
+            {
+                painted++;                
+            }
+        }
+        GetCurrentFiil(painted);
+    }    
+    void GetCurrentFiil(int painted)
+    {
+        float fillAmount = (float)painted / (float)max;
+        fillAmountMask.fillAmount = fillAmount;
+        if (fillAmountMask.fillAmount == 1f)
+        {
+            paintedFinish();
+        }
+    }
+    void paintedFinish()
+    {
+        isPainted = true;
+        Debug.Log("Boyandý");
+        AudioController.audioControllerInstance.Play("FinishSound");
+        UIController.uicontrollerInstance.paintSuccessful.SetActive(true);
+        UIController.uicontrollerInstance.nextLevel.gameObject.SetActive(true);
     }
 }
