@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     {
         startGame = false;
         isFinish = false;
+        AudioController.audioControllerInstance.Play("BgSound");
     }
     
     void Update()

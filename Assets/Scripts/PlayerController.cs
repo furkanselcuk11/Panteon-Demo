@@ -98,29 +98,29 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("StaticObstacle"))
         {
             // Eger StaticObstacle objesine temas etmisse tekrar oyna
-            Debug.Log("Tekrar başla");
-            isMove = false;
+            //AudioController.audioControllerInstance.Play("DeathSound");
+            //isMove = false;
             StartCoroutine(nameof(RestartPosition));
         }
         if (collision.gameObject.CompareTag("HorizontalObstacle"))
         {
             // Eger HorizontalObstacle objesine temas etmisse tekrar oyna
-            Debug.Log("Tekrar başla");
-            isMove = false;
+            //AudioController.audioControllerInstance.Play("DeathSound");
+            //isMove = false;
             StartCoroutine(nameof(RestartPosition));
         }
         if (collision.gameObject.CompareTag("MovingStick"))
         {
             // Eger MovingStick objesine temas etmisse tekrar oyna
-            Debug.Log("Tekrar başla");
-            isMove = false;
+            //AudioController.audioControllerInstance.Play("DeathSound");
+            //isMove = false;
             StartCoroutine(nameof(RestartPosition));
         }
         if (collision.gameObject.CompareTag("RotatingStick"))
         {
             // Eger RotatingStick objesine temas etmisse cubuk kuvvet uygular
-            Debug.Log("Tekrar başla");
-            isMove = false;
+            //AudioController.audioControllerInstance.Play("DeathSound");
+            //isMove = false;
             rb.AddForce(collision.gameObject.transform.right * 300f * Time.fixedDeltaTime, ForceMode.Impulse);
             StartCoroutine(nameof(RestartPosition));
         }
@@ -144,12 +144,15 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator RestartPosition()
     {
-        yield return new WaitForSeconds(1f);
+        AudioController.audioControllerInstance.Play("DeathSound");
+        isMove = false;
+        yield return new WaitForSeconds(0.5f);
         transform.position = Vector3.zero;
     }
     IEnumerator PlayerStop()
     {
         konfetiFX.Play();   // Finish cizgisi gecildiginde Konfeti patlar
+        AudioController.audioControllerInstance.Play("FinishSound");
         yield return new WaitForSeconds(0.3f);        
         anim.SetTrigger("Victory");   // Victory animasyonu çalışır
         isMove = false;

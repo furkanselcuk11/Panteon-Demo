@@ -13761,6 +13761,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1343511482}
+  - component: {fileID: 1343511483}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -13782,6 +13783,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1343511483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343511481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82bcecf67585074459243096984b328a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - source: {fileID: 0}
+    name: BgSound
+    clip: {fileID: 8300000, guid: a4a1db8aa6ecedd43b3536fc26f21b19, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+  - source: {fileID: 0}
+    name: FinishSound
+    clip: {fileID: 8300000, guid: 0ca2e551f533e4b45b6ddd8612463d66, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+  - source: {fileID: 0}
+    name: DeathSound
+    clip: {fileID: 8300000, guid: 025d711a2dc674f4e8bc565b37e4cb3f, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
 --- !u!1 &1344389880
 GameObject:
   m_ObjectHideFlags: 0
