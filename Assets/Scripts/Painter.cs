@@ -71,7 +71,6 @@ public class Painter : MonoBehaviour
         }
         texture.SetPixels32(textureC32);        
         texture.Apply(); // Deðiþiklikleri uygulamasý için
-        Debug.Log("T32: " + textureC32.Length);         
 
         int painted = 0;
         foreach (var item in textureC32)
