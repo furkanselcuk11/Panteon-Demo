@@ -10,6 +10,7 @@ TagManager:
   - MovingStick
   - HorizontalObstacle
   - UnRayCast
+  - Fail
   layers:
   - Default
   - TransparentFX

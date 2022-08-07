@@ -78,10 +78,6 @@ public class PlayerController : MonoBehaviour
             moveX = Mathf.Clamp(moveX + 1 * (horizontalspeed / 2) * Time.fixedDeltaTime, -defaultSwipe, defaultSwipe);    // Pozisyon sýnýrlandýrýlmasý koyulacaksa
         }
         transform.position = new Vector3(moveX, transform.position.y, moveZ);
-        //if (transform.position.y <= -0.5f)
-        //{
-        //    GameManager.gamemanagerInstance.startGame = false;
-        //}
     }
 
     private void OnTriggerEnter(Collider other)
@@ -91,6 +87,12 @@ public class PlayerController : MonoBehaviour
             // Eğer karakter Finish cizgisini gecmisse karakter hareket etmez 
             StartCoroutine(nameof(PlayerStop));
             konfetiFX.transform.position = this.transform.position;
+            transform.position = new Vector3(0, transform.position.y, transform.position.z);
+        }
+        if (other.gameObject.CompareTag("Fail"))
+        {
+            // Eğer karakter düşmğş ve Fail temas etmisse tekrar oyna
+            StartCoroutine(nameof(RestartPosition));
         }
     }
     private void OnCollisionEnter(Collision collision)
@@ -98,29 +100,21 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("StaticObstacle"))
         {
             // Eger StaticObstacle objesine temas etmisse tekrar oyna
-            //AudioController.audioControllerInstance.Play("DeathSound");
-            //isMove = false;
             StartCoroutine(nameof(RestartPosition));
         }
         if (collision.gameObject.CompareTag("HorizontalObstacle"))
         {
             // Eger HorizontalObstacle objesine temas etmisse tekrar oyna
-            //AudioController.audioControllerInstance.Play("DeathSound");
-            //isMove = false;
             StartCoroutine(nameof(RestartPosition));
         }
         if (collision.gameObject.CompareTag("MovingStick"))
         {
             // Eger MovingStick objesine temas etmisse tekrar oyna
-            //AudioController.audioControllerInstance.Play("DeathSound");
-            //isMove = false;
             StartCoroutine(nameof(RestartPosition));
         }
         if (collision.gameObject.CompareTag("RotatingStick"))
         {
             // Eger RotatingStick objesine temas etmisse cubuk kuvvet uygular
-            //AudioController.audioControllerInstance.Play("DeathSound");
-            //isMove = false;
             rb.AddForce(collision.gameObject.transform.right * 300f * Time.fixedDeltaTime, ForceMode.Impulse);
             StartCoroutine(nameof(RestartPosition));
         }

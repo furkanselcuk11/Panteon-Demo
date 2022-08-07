@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +7,8 @@ public class AIManager : MonoBehaviour
     public static AIManager aimanagerInstance;
     Rigidbody rb;
     private Vector3 startPosition;
+
+    
     public bool isMove;
     public bool isFinish;
 
@@ -25,7 +27,6 @@ public class AIManager : MonoBehaviour
         isMove = false;
         isFinish = false;
     }
-
     
     void Update()
     {
@@ -33,15 +34,20 @@ public class AIManager : MonoBehaviour
     }
     IEnumerator RestartPosition()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         this.transform.position = this.startPosition;
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Finish"))
         {
-            // Eðer karakter Finish cizgisini gecmisse karakter hareket etmez
+            // EÄŸer karakter Finish cizgisini gecmisse karakter hareket etmez
             this.GetComponent<AvoidingObstacles>().StartCoroutine("EnemyStop");
+        }
+        if (other.gameObject.CompareTag("Fail"))
+        {
+            // EÄŸer karakter dÃ¼ÅŸmÄŸÅŸ ve Fail temas etmisse tekrar oyna
+            StartCoroutine(nameof(RestartPosition));
         }
     }
     private void OnCollisionEnter(Collision collision)
@@ -68,21 +74,5 @@ public class AIManager : MonoBehaviour
             StartCoroutine(nameof(RestartPosition));
         }
     }
-    private void OnCollisionStay(Collision collision)
-    {
-        //if (collision.gameObject.CompareTag("RotatingPlatform"))
-        //{
-        //    // RotatingPlatform objesine temas etmisse
-        //    isRotatingPlatform = true;
-        //    isRight = collision.gameObject.GetComponent<RotatingPlatform>().turnDirection;
-        //}
-    }
-    private void OnCollisionExit(Collision collision)
-    {
-        //if (collision.gameObject.CompareTag("RotatingPlatform"))
-        //{
-        //    // RotatingPlatform objesinden çýkmýþsa
-        //    isRotatingPlatform = false;
-        //}
-    }
+    
 }

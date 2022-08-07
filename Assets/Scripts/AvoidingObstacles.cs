@@ -9,6 +9,10 @@ public class AvoidingObstacles : MonoBehaviour
     [SerializeField] private float defaultSwipe = 4f;    // Player default kaydirma mesafesi
     [SerializeField] private float speed = 20f;
     [SerializeField] private Vector2 speedBetween;
+    [SerializeField] private float horizontalspeed = 5f; // Player yön hareket hizi
+    private bool isRotatingPlatform;
+    private bool isRight;
+
     bool isLeftHit;
     bool isRightHit;
     bool isBothHit;
@@ -54,8 +58,42 @@ public class AvoidingObstacles : MonoBehaviour
         {
             AIManager.aimanagerInstance.isMove = false;
         }
+        if (isRotatingPlatform)
+        {
+            RotatingPlatformMove(isRight);
+            RotatingPlatformMoveNormal(isRight);
+        }
     }
-
+    void RotatingPlatformMove(bool value)
+    {
+        // RotatingPlatform üzerinde düşürmmek için uygulanan kuvvet
+        float moveX = this.transform.position.x; // Player objesinin x pozisyonun de?erini al?r      
+        float moveZ = this.transform.position.z; // Player objesinin z pozisyonun de?erini al?r  
+        if (!value)
+        {
+            moveX = Mathf.Clamp(moveX - 1 * (horizontalspeed / 2) * Time.fixedDeltaTime, -defaultSwipe, defaultSwipe);    // Pozisyon sýnýrlandýrýlmasý koyulacaksa
+        }
+        else
+        {
+            moveX = Mathf.Clamp(moveX + 1 * (horizontalspeed / 2) * Time.fixedDeltaTime, -defaultSwipe, defaultSwipe);    // Pozisyon sýnýrlandýrýlmasý koyulacaksa
+        }
+        transform.position = new Vector3(moveX, transform.position.y, moveZ);
+    }
+    void RotatingPlatformMoveNormal(bool value)
+    {
+        // RotatingPlatform üzerinde kalmak için uygulanan kuvet
+        float moveX = this.transform.position.x; // Player objesinin x pozisyonun de?erini al?r      
+        float moveZ = this.transform.position.z; // Player objesinin z pozisyonun de?erini al?r  
+        if (value)
+        {
+            moveX = Mathf.Clamp(moveX - 1 * (horizontalspeed) * Time.fixedDeltaTime, -defaultSwipe, defaultSwipe);    // Pozisyon sýnýrlandýrýlmasý koyulacaksa
+        }
+        else
+        {
+            moveX = Mathf.Clamp(moveX + 1 * (horizontalspeed) * Time.fixedDeltaTime, -defaultSwipe, defaultSwipe);    // Pozisyon sýnýrlandýrýlmasý koyulacaksa
+        }
+        transform.position = new Vector3(moveX, transform.position.y, moveZ);
+    }
     private void All_Raycast()
     {
         Left_Raycast();
@@ -183,6 +221,23 @@ public class AvoidingObstacles : MonoBehaviour
         var ray_direction = rotaitonAxis * Vector3.forward;
 
         return ray_direction;
+    }
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("RotatingPlatform"))
+        {
+            // RotatingPlatform objesine temas etmisse
+            isRotatingPlatform = true;
+            isRight = collision.gameObject.GetComponent<RotatingPlatform>().turnDirection;
+        }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("RotatingPlatform"))
+        {
+            // RotatingPlatform objesinden çıkmışsa
+            isRotatingPlatform = false;
+        }
     }
     public IEnumerator EnemyStop()
     {
