@@ -8,9 +8,9 @@ public class SaveManager : MonoBehaviour
 {
     public static SaveManager savemanagerInstance;
     [Header("Meta")]
-    public string saveName;
+    public string saveName; // Kayýt dosyasinin ismi
     [Header("Scriptable Objects")]
-    public List<ScriptableObject> objectsToSave;
+    public List<ScriptableObject> objectsToSave;    // Kayit adilecek objeler
     private void Awake()
     {
         if (savemanagerInstance == null)
@@ -51,9 +51,5 @@ public class SaveManager : MonoBehaviour
             bf.Serialize(file, json);
             file.Close();
         }
-    }
-    private void OnDisable()
-    {
-        // Veri Kaydetme 
     }
 }

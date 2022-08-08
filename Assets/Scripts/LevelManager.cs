@@ -10,23 +10,22 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
       
-    }
-   
+    }   
     public void NextLevel()
     {
         // Sonraki Level gecer
-        GameManager.gamemanagerInstance.startGame = false;
+        GameManager.gamemanagerInstance.startGame = false;  // Sonraki levele geciste startGame false olur
         scoreType.gameLevel++;  // Bir sonraki icin arttırır
-        if (scoreType.gameLevel == SceneManager.sceneCountInBuildSettings)  // Son seviye kaçsa (index deðerine göre ) son seviye gelince ilk levele geri döner
+        if (scoreType.gameLevel == SceneManager.sceneCountInBuildSettings)  // Son seviye kaçsa (index degerine göre ) son seviye gelince ilk levele geri döner
         {
             SceneManager.LoadScene(1);  // Oyunun ilk sahnesinin index degerini çalistirir
-            scoreType.gameLevel = 1;    // oyunlevelini 1 oalrak ekler
+            scoreType.gameLevel = 1;    // oyunlevelini 1 olarak degistirir
         }
         else
         {
-            SceneManager.LoadScene(scoreType.gameLevel);   // Currentevel+1 diye deðiþtir
+            SceneManager.LoadScene(scoreType.gameLevel);   // Aktif leveli acar
             //Bir sonraki levele geçer
         }
-        SaveManager.savemanagerInstance.SaveGame();
+        SaveManager.savemanagerInstance.SaveGame(); // Verileri kaydet
     }
 }

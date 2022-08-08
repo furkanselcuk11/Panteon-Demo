@@ -7,7 +7,6 @@ public class AIManager : MonoBehaviour
     public static AIManager aimanagerInstance;
     Rigidbody rb;
     private Vector3 startPosition;
-
     
     public bool isMove;
     public bool isFinish;
@@ -41,12 +40,12 @@ public class AIManager : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Finish"))
         {
-            // Eğer karakter Finish cizgisini gecmisse karakter hareket etmez
+            // Eğer AI Finish cizgisini gecmisse AI hareket etmez
             this.GetComponent<AvoidingObstacles>().StartCoroutine("EnemyStop");
         }
         if (other.gameObject.CompareTag("Fail"))
         {
-            // Eğer karakter düşmğş ve Fail temas etmisse tekrar oyna
+            // Eğer AI dusmus ve Fail temas etmisse tekrar oyna
             StartCoroutine(nameof(RestartPosition));
         }
     }

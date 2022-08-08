@@ -5,32 +5,29 @@ using System.Linq;
 
 public class Ranking : MonoBehaviour
 {
-    [SerializeField] private GameObject aiOpponentsParent;
-    [SerializeField] private GameObject player;
-    [SerializeField] private Transform finishPoint;
-    [SerializeField] private List<GameObject> rankingList=new List<GameObject>();
+    [SerializeField] private GameObject aiOpponentsParent;  // AI rakiplerin tutuldugu ana parent
+    [SerializeField] private GameObject player; // oyuncu   
+    [SerializeField] private Transform finishPoint; // Finish noktasi
+    [SerializeField] private List<GameObject> rankingList=new List<GameObject>();   // Siralama listesi
     public int indexNo = 0;
     void Start()
     {
-        ListAdd();
-        ListUpdate();                
+        ListAdd();  // Siralama Listesine ekleme
+        ListUpdate(); // Siralama Listesini guncelle               
     }    
     void Update()
     {
         if (!GameManager.gamemanagerInstance.isFinish)
         {
-            ListUpdate();
-        }
-        else
-        {
-            //UIController.uicontrollerInstance.finishRankText.SetText(indexNo.ToString());
+            ListUpdate();   // eger finish aktif degilse Siralama Listesini guncelle
         }
     }
     private void ListAdd()
     {
-        rankingList.Add(player);
+        rankingList.Add(player);    // oyuncuyu Siralama Listesine ekle
         for (int i = 0; i < aiOpponentsParent.transform.childCount; i++)
         {
+            // aiOpponentsParent altindaki AI rakipleri Siralama Listesine ekle
             rankingList.Add(aiOpponentsParent.transform.GetChild(i).transform.gameObject);
         }
     }
@@ -45,6 +42,6 @@ public class Ranking : MonoBehaviour
                 indexNo = rankingList.IndexOf(item) + 1;                
             }
         }
-        UIController.uicontrollerInstance.rankingText.text=indexNo+" / 11";
+        UIController.uicontrollerInstance.rankingText.text=indexNo+" / 11"; // Oyuncun siralamadaki yerini goster
     }
 }

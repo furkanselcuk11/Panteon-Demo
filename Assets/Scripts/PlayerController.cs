@@ -11,10 +11,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed = 5f;    // Player hareket hizi
     [SerializeField] private float horizontalspeed = 5f; // Player yön hareket hizi
     [SerializeField] private float defaultSwipe = 4f;    // Player default kaydirma mesafesi
-    [SerializeField] private ParticleSystem konfetiFX;
-    private bool isRotatingPlatform;
-    private bool isRight;
-    public bool isMove;
+    [SerializeField] private ParticleSystem konfetiFX;  // Finih alani konfeti efekti
+    private bool isRotatingPlatform;    // RotatingPlatform uzerinde karakter varmı
+    private bool isRight;   //RotatingPlatform donus yonu
+    public bool isMove; // Hareker ediyor mu
 
     private Animator anim;
     void Start()
@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
 
         if (isRotatingPlatform)
         {
+            // RotatingPlatform donus yonune karaktere zıt kuvvet uygular
             RotatingPlatformMove(isRight);            
         }
     }
@@ -52,12 +53,12 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftArrow) || MobileInput.instance.swipeLeft)
         {   // Eðer klavyede sol ok tuþuna basýldýysa yada "MobileInput" scriptinin swipeLeft deðeri True ise  Sola hareket gider
-            moveX = Mathf.Clamp(moveX - 1 * horizontalspeed * Time.fixedDeltaTime, -defaultSwipe, defaultSwipe);    // Pozisyon sýnýrlandýrýlmasý koyulacaksa
+            moveX = Mathf.Clamp(moveX - 1 * horizontalspeed * Time.fixedDeltaTime, -defaultSwipe, defaultSwipe);    // Pozisyon sýnýrlandýrýlmasý koyulacaksa defaultSwipe eklenir
             // Player objesinin x (sol) pozisyonundaki gideceði min-max sýnýrý belirler
         }
         else if (Input.GetKey(KeyCode.RightArrow) || MobileInput.instance.swipeRight)
         {   // Eðer klavyede sað ok tuþuna basýldýysa yada "MobileInput" scriptinin swipeRight deðeri True ise Saða hareket gider   
-            moveX = Mathf.Clamp(moveX + 1 * horizontalspeed * Time.fixedDeltaTime, -defaultSwipe, defaultSwipe);    // Pozisyon sýnýrlandýrýlmasý koyulacaksa
+            moveX = Mathf.Clamp(moveX + 1 * horizontalspeed * Time.fixedDeltaTime, -defaultSwipe, defaultSwipe);    // Pozisyon sýnýrlandýrýlmasý koyulacaksa defaultSwipe eklenir
             // Player objesinin x (sað) pozisyonundaki gideceði min-max sýnýrý belirler
         }
         transform.position = new Vector3(moveX, transform.position.y, moveZ);
@@ -71,11 +72,11 @@ public class PlayerController : MonoBehaviour
         float moveZ = transform.position.z; // Player objesinin z pozisyonun de?erini al?r  
         if (!value)
         {
-            moveX = Mathf.Clamp(moveX - 1 * (horizontalspeed/2) * Time.fixedDeltaTime, -defaultSwipe, defaultSwipe);    // Pozisyon sýnýrlandýrýlmasý koyulacaksa
+            moveX = Mathf.Clamp(moveX - 1 * (horizontalspeed/2) * Time.fixedDeltaTime, -defaultSwipe, defaultSwipe);    
         }
         else
         {
-            moveX = Mathf.Clamp(moveX + 1 * (horizontalspeed / 2) * Time.fixedDeltaTime, -defaultSwipe, defaultSwipe);    // Pozisyon sýnýrlandýrýlmasý koyulacaksa
+            moveX = Mathf.Clamp(moveX + 1 * (horizontalspeed / 2) * Time.fixedDeltaTime, -defaultSwipe, defaultSwipe);    
         }
         transform.position = new Vector3(moveX, transform.position.y, moveZ);
     }
@@ -147,12 +148,12 @@ public class PlayerController : MonoBehaviour
     {
         konfetiFX.Play();   // Finish cizgisi gecildiginde Konfeti patlar
         AudioController.audioControllerInstance.Play("FinishSound");
-        yield return new WaitForSeconds(0.3f);        
+        yield return new WaitForSeconds(0.3f);   // 0.3 sure sonra calis     
         anim.SetTrigger("Victory");   // Victory animasyonu çalışır
-        isMove = false;
-        GameManager.gamemanagerInstance.isFinish = true;
-        UIController.uicontrollerInstance.finishRankText.text = FindObjectOfType<Ranking>().indexNo.ToString();
-        yield return new WaitForSeconds(0.1f);
+        isMove = false; // hareket etme false olur
+        GameManager.gamemanagerInstance.isFinish = true; // isFinish aktif olur
+        UIController.uicontrollerInstance.finishRankText.text = FindObjectOfType<Ranking>().indexNo.ToString(); // Yarisdaki siralamasi yazilir
+        yield return new WaitForSeconds(0.1f);  // 0.1 sure sonra calis 
         anim.SetBool("Running", false);   // Koþma animasyonu durur ve default olarak bekleme animsayonu çalýþýr
         GetComponent<PlayerController>().enabled = false;
         GetComponent<MobileInput>().enabled = false;

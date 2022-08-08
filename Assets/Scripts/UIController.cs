@@ -37,18 +37,21 @@ public class UIController : MonoBehaviour
     {
         if (GameManager.gamemanagerInstance.startGame & !GameManager.gamemanagerInstance.isFinish)
         {
+            // Eger Oyun baslamissa GameRunTimePanel aktif olur
             GameStartPanel.SetActive(false);
             GameRunTimePanel.SetActive(true);
             GameFinishPanel.SetActive(false);
         }
         else
         {
+            // Eger startGame false ve Finih alanina gelinmisse GameFinishPanel aktif olur
             GameStartPanel.SetActive(false);
             GameRunTimePanel.SetActive(false);
             GameFinishPanel.SetActive(true);
         }
         if (!GameManager.gamemanagerInstance.startGame & !GameManager.gamemanagerInstance.isFinish)
         {
+            // Eger startGame false ve Finih fase ise oyun baslamamissa GameStartPanel aktif olur
             GameStartPanel.SetActive(true);
             GameRunTimePanel.SetActive(false);
             GameFinishPanel.SetActive(false);

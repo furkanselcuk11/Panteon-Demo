@@ -17,9 +17,9 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        startGame = false;
-        isFinish = false;
-        AudioController.audioControllerInstance.Play("BgSound");
+        startGame = false;  // Oyun ilk basladiginda startGame false olur
+        isFinish = false;   // Oyun ilk basladiginda isFinish false olur
+        AudioController.audioControllerInstance.Play("BgSound");    // Arkaplan sesi calar
     }
     
     void Update()

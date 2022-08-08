@@ -30,7 +30,7 @@ public class LoaidingManager : MonoBehaviour
             //Bir sonraki levele geçer
             while (!async.isDone)
             {
-                progressBar.value = async.progress; // Loading akranı ileriler
+                progressBar.value = async.progress; // Loadingbar ekranı ilerletilit
                 yield return null;
             }
         }
